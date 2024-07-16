@@ -13,9 +13,8 @@
             <button id="addTaskBtn"><h2>add Task</h2></button>
             <button id="tasksBtn">Tasks</button>
             <hr>
-            <button id="urgentBtn">Urgent</button>
+            <button id="todayBtn">Today</button>
             <button id="somedayBtn">Someday</button>
-            <hr>
             <button id="anytimeBtn">Anytime</button>
             <hr>
 
@@ -26,10 +25,30 @@
         </div>
         <div class="listsContainer"></div>
     </div>
-    <div id="right">
-        a
-    </div>
-    <footer></footer>
 
+    <div id="right">
+        
+    </div>
+
+
+
+
+    <dialog>
+        <button id="dlgCloseBtn">cancel</button>
+        <form action="#">
+            <div>
+                <input type="text" id="taskName" placeholder="New Task" autocomplete="off" required>
+            </div>
+            <div>
+                <input type="text" id="taskDue" placeholder="Due Date" autocomplete="off">
+            </div>
+            <div>
+                <input type="text" id="taskDesc" placeholder="Description" autocomplete="off">
+            </div>
+        </form>
+        <button id="confirmBtn">add Task</button>
+    </dialog>
+
+    <script src="index.js"></script>
 </body>
 </html>
