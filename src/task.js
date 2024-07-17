@@ -1,3 +1,4 @@
+import { listModule } from "./list";
 
 const TaskModule = (function(){
     let taskArr = [];
@@ -10,13 +11,7 @@ const TaskModule = (function(){
             this.list = list;
         }
 
-        createCard() {
-            const content = document.querySelector('#right');
-            const card = document.createElement('div');
-            const text = `${this.name} ${this.due} ${this.desc} ${this.list}`;
-            card.textContent = text;
-            content.appendChild(card);
-        }
+
 
     }
 

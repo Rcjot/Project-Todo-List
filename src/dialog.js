@@ -46,7 +46,8 @@ export const dialogModule = {
     },
     confirmList: function(){
         const listName = document.querySelector('#listName');
-        listModule.addList(listName.value);
+        const listColor = document.querySelector('#listColor');
+        listModule.addList(listName.value, listColor.value);
         RenderModule.update();
     },
 
