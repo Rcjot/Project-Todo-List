@@ -25,7 +25,8 @@ export const dialogModule = {
         const taskName = document.querySelector('#taskName');
         const taskDue = document.querySelector('#taskDue');
         const taskDesc = document.querySelector('#taskDesc');
-        TaskModule.createTask(taskName.value, taskDue.value, taskDesc.value);
+        const taskList = document.querySelector('#listDropdown');
+        TaskModule.createTask(taskName.value, taskDue.value, taskDesc.value, taskList.value);
         RenderModule.update();
     },
     listBtn: function(){

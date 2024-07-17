@@ -34,14 +34,21 @@
         <button id="dlgCloseBtn">cancel</button>
         <form action="#">
             <div>
+                <label for="taskName">Task name</label>
                 <input type="text" id="taskName" placeholder="New Task" autocomplete="off" required>
             </div>
             <div>
-                <input type="text" id="taskDue" placeholder="Due Date" autocomplete="off">
+                <label for="taskDue">Due date</label>
+                <input type="date" id="taskDue" >
             </div>
             <div>
+                <label for="taskDesc">Description</label>
                 <input type="text" id="taskDesc" placeholder="Description" autocomplete="off">
             </div>
+            <label for="listDropdown">add to List</label>
+            <select id="listDropdown">
+                <option value="task">tasks</option>
+            </select>
         </form>
         <button id="confirmBtn">add Task</button>
     </dialog>
