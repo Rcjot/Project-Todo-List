@@ -30,10 +30,7 @@
         
     </div>
 
-
-
-
-    <dialog>
+    <dialog id="taskDialog">
         <button id="dlgCloseBtn">cancel</button>
         <form action="#">
             <div>
@@ -49,6 +46,14 @@
         <button id="confirmBtn">add Task</button>
     </dialog>
 
+    <dialog id="listDialog">
+        <button id="dlgCloseBtnList">cancel</button>
+        <form action="#">
+            <label for="listName"></label>
+            <input type="text" id="listName" placeholder="list name" autocomplete="off">
+        </form>
+        <button id="confirmBtnList">confirm</button>
+    </dialog>
     <script src="index.js"></script>
 </body>
 </html>
