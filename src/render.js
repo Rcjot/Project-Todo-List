@@ -1,6 +1,7 @@
 import { TaskModule } from "./task";
 import { listModule } from "./list";
 import { format } from "date-fns";
+import { ta } from "date-fns/locale";
 
 const RenderModule = (function(){
 
@@ -15,9 +16,9 @@ const RenderModule = (function(){
     const createCard = function(task) {
         const content = document.querySelector('#right');
         const card = document.createElement('div');
-        const myDate = (task.due === '') ? "Anytime" : format(new Date(task.due), "eee', 'LLLL d");
         const showmore = document.createElement('button');
         const editContainer = document.createElement('div');
+        const textDiv = document.createElement('div');
         let editOpen = false
 
         showmore.addEventListener('click', () =>{
@@ -25,19 +26,24 @@ const RenderModule = (function(){
                 editContainer.innerHTML = '';
                 // editContainer.style.display = 'none';
             }else{
-                editCard(card, task, editContainer);
+                editCard(card, task, editContainer, textDiv);
             }
             editOpen = !editOpen;
         });
 
         showmore.textContent = '...';
-        changeColor(card, task);      
-        
-        const text = `${task.name} ${myDate} ${task.desc} ${task.listName}`;
-        card.textContent = text;
+        changeColor(card, task);
+        changeText(textDiv, task);
+        card.appendChild(textDiv);
         card.appendChild(showmore);
         content.appendChild(card);
 
+    }
+
+    const changeText = function(textDiv, task){
+        const myDate = (task.due === '') ? "Anytime" : format(new Date(task.due), "eee', 'LLLL d");
+        const text = `${task.name} ${myDate} ${task.desc} ${task.listName}`;
+        textDiv.textContent = text;
     }
 
     const changeColor = function(card, task){
@@ -50,7 +56,7 @@ const RenderModule = (function(){
         }
     }
 
-    const editCard = function(card, task, editContainer){
+    const editCard = function(card, task, editContainer, textDiv){
         editContainer.innerHTML = '';
         const nameInput = document.createElement('input');
         nameInput.setAttribute('type', 'text');
@@ -59,6 +65,11 @@ const RenderModule = (function(){
         const descInput = document.createElement('input');
         descInput.setAttribute('type', 'text');
         const selection = document.createElement('select');
+        const unlistedOption = document.createElement('option');
+        unlistedOption.value = '';
+        unlistedOption.textContent = 'unlisted';
+        selection.appendChild(unlistedOption);
+
         for (let list of listModule.listArr) {
             console.log(list.listName);
             const option = document.createElement('option');
@@ -71,12 +82,22 @@ const RenderModule = (function(){
         descInput.value = task.desc;
         selection.value = task.listName;
 
-        nameInput.addEventListener('change', () => task.editName(nameInput.value));
-        dueInput.addEventListener('change', () => task.editDue(dueInput.value));
-        descInput.addEventListener('change', () => task.editDesc(descInput.value));
+        nameInput.addEventListener('change', () => {
+            task.editName(nameInput.value);
+            changeText(textDiv, task);
+        }); 
+        dueInput.addEventListener('change', () =>{
+            task.editDue(dueInput.value);
+            changeText(textDiv, task);
+        });
+        descInput.addEventListener('change', () =>{
+            task.editDesc(descInput.value);
+            changeText(textDiv, task);
+        });
         selection.addEventListener('change', () => {
             task.editList(selection.value);
             changeColor(card, task);
+            changeText(textDiv, task);
         });
         editContainer.appendChild(nameInput);
         editContainer.appendChild(dueInput);
