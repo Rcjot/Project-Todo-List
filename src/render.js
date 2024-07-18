@@ -28,9 +28,11 @@ const RenderModule = (function(){
         content.appendChild(card);
     }
     
-    // const navBtns = function() {
+    const navBtns = function() {
+        const tasksBtn = document.querySelector('#tasksBtn');
+        tasksBtn.addEventListener('click', () => generateCards());
 
-    // };
+    };
 
 
     const generateList = function() {
@@ -66,6 +68,7 @@ const RenderModule = (function(){
         listsContainer.innerHTML = '';
         content.innerHTML = '';
 
+        navBtns();
         generateCards();
         generateList();
     }
