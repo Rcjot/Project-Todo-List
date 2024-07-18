@@ -10,16 +10,28 @@ const listModule = (function(){
         return {listName, listColor};
     }
 
+    const getStorage = function() {
+        const jsonListArr = JSON.parse(localStorage.getItem("listArr"));
+        for (let listObj of jsonListArr){
+            addList(listObj.listName, listObj.listColor);
+        }
+    }
+
+    const populateStorage = function() {
+        localStorage.setItem("listArr", JSON.stringify(listArr));
+    }
+
     const addList = function(name, color){
         listArr.push(ListObj(name,color));
+        populateStorage();
         RenderModule.updateOptionsDropDown();
     }
 
-
-
     return {
         addList,
-        listArr
+        listArr,
+        populateStorage,
+        getStorage
     }
 })();
 

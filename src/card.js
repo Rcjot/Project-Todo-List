@@ -12,11 +12,22 @@ const cardModule =(function() {
         const editContainer = document.createElement('div');
         const textDiv = document.createElement('div');
         let editOpen = false
+        const checkBox = document.createElement('input');
+        checkBox.setAttribute('type', 'checkbox');
+        checkBox.checked = task.checked;
+
+        checkBox.addEventListener('change', () => {
+            task.editChecked();
+            console.log(TaskModule.taskArr);
+            TaskModule.populateStorage();
+        });
+
 
         showmore.addEventListener('click', () =>{
             if (editOpen){
                 editContainer.innerHTML = '';
             }else{
+                console.log(task);
                 editCard(card, task, editContainer, textDiv);
             }
             editOpen = !editOpen;
@@ -26,13 +37,22 @@ const cardModule =(function() {
         changeColor(card, task);
         changeText(textDiv, task);
         card.appendChild(textDiv);
+        card.appendChild(checkBox);
         card.appendChild(showmore);
         content.appendChild(card);
 
     }
 
     const changeText = function(textDiv, task){
-        const myDate = (task.due === '') ? "Anytime" : format(new Date(task.due), "eee', 'LLLL d");
+        console.log(task.due);
+        let myDate;
+        if (task.due === ''){
+            myDate = 'Anytime';
+        }else if (task.due === format(new Date(), "yyyy-MM-dd")){
+            myDate = 'Today';
+        }else{
+            myDate = format(new Date(task.due), "eee', 'LLLL d")
+        }
         const text = `${task.name} ${myDate} ${task.desc} ${task.listName}`;
         textDiv.textContent = text;
     }
@@ -75,25 +95,30 @@ const cardModule =(function() {
         nameInput.addEventListener('change', () => {
             task.editName(nameInput.value);
             changeText(textDiv, task);
+            TaskModule.populateStorage();
         }); 
         dueInput.addEventListener('change', () =>{
             task.editDue(dueInput.value);
             changeText(textDiv, task);
+            TaskModule.populateStorage();
         });
         descInput.addEventListener('change', () =>{
             task.editDesc(descInput.value);
             changeText(textDiv, task);
+            TaskModule.populateStorage();
         });
         selection.addEventListener('change', () => {
             task.editList(selection.value);
             changeColor(card, task);
             changeText(textDiv, task);
+            TaskModule.populateStorage();
         });
         const deleteBtn = document.createElement('button');
         deleteBtn.addEventListener('click', () => {
             const taskIndex = TaskModule.taskArr.findIndex(thisTask => thisTask.name === task.name);
             TaskModule.taskArr.splice(taskIndex, 1);
             RenderModule.update();
+            TaskModule.populateStorage();
         });
         deleteBtn.textContent = 'delete';
         editContainer.appendChild(nameInput);
@@ -103,7 +128,7 @@ const cardModule =(function() {
         editContainer.appendChild(deleteBtn);
         card.appendChild(editContainer);
 
-
+        
         
     }
 

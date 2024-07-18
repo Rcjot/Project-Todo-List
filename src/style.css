@@ -7,16 +7,22 @@
 body {
     min-width: 100vw;
     min-height: 100vh;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 0.5fr 5fr;
+}
+
+#headName h1{
+    font-size: 3.5em;
 }
 
 #left {
-    flex: 1;
+    grid-row: 1/3;
     border: 1px solid black;
 }
 
 #right {
-    flex: 5;
+
 }
 
 /* #left start */
