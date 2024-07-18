@@ -11,7 +11,21 @@ const TaskModule = (function(){
             this.listName = list;
         }
 
+        editName(newName) {
+            this.name = newName;
+        }
 
+        editDue(newDue){
+            this.due = newDue;
+        }
+
+        editDesc(newDesc){
+            this.desc = newDesc;
+        }
+
+        editList(newList){
+            this.listName = newList;
+        }
 
     }
 

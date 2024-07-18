@@ -1,5 +1,6 @@
 import { TaskModule } from "./task";
 import { listModule } from "./list";
+import { format } from "date-fns";
 
 const RenderModule = (function(){
 
@@ -14,8 +15,32 @@ const RenderModule = (function(){
     const createCard = function(task) {
         const content = document.querySelector('#right');
         const card = document.createElement('div');
-        const text = `${task.name} ${task.due} ${task.desc} ${task.listName}`;
+        const myDate = (task.due === '') ? "Anytime" : format(new Date(task.due), "eee', 'LLLL d");
+        const showmore = document.createElement('button');
+        const editContainer = document.createElement('div');
+        let editOpen = false
 
+        showmore.addEventListener('click', () =>{
+            if (editOpen){
+                editContainer.innerHTML = '';
+                // editContainer.style.display = 'none';
+            }else{
+                editCard(card, task, editContainer);
+            }
+            editOpen = !editOpen;
+        });
+
+        showmore.textContent = '...';
+        changeColor(card, task);      
+        
+        const text = `${task.name} ${myDate} ${task.desc} ${task.listName}`;
+        card.textContent = text;
+        card.appendChild(showmore);
+        content.appendChild(card);
+
+    }
+
+    const changeColor = function(card, task){
         if (task.listName === ''){
             card.setAttribute('style', `background-color:#ffffff`);
         }else{
@@ -23,20 +48,51 @@ const RenderModule = (function(){
             const color = carol.listColor;
             card.setAttribute('style', `background-color:${color}`);
         }
+    }
 
-        card.textContent = text;
-        content.appendChild(card);
+    const editCard = function(card, task, editContainer){
+        editContainer.innerHTML = '';
+        const nameInput = document.createElement('input');
+        nameInput.setAttribute('type', 'text');
+        const dueInput = document.createElement('input');
+        dueInput.setAttribute('type', 'date');
+        const descInput = document.createElement('input');
+        descInput.setAttribute('type', 'text');
+        const selection = document.createElement('select');
+        for (let list of listModule.listArr) {
+            console.log(list.listName);
+            const option = document.createElement('option');
+            option.value = list.listName;
+            option.textContent = list.listName;
+            selection.appendChild(option);
+        }
+        nameInput.value = task.name;
+        dueInput.value = task.due;
+        descInput.value = task.desc;
+        selection.value = task.listName;
+
+        nameInput.addEventListener('change', () => task.editName(nameInput.value));
+        dueInput.addEventListener('change', () => task.editDue(dueInput.value));
+        descInput.addEventListener('change', () => task.editDesc(descInput.value));
+        selection.addEventListener('change', () => {
+            task.editList(selection.value);
+            changeColor(card, task);
+        });
+        editContainer.appendChild(nameInput);
+        editContainer.appendChild(dueInput);
+        editContainer.appendChild(descInput);
+        editContainer.appendChild(selection);
+        card.appendChild(editContainer);
+
     }
     
     const navBtns = function() {
         const tasksBtn = document.querySelector('#tasksBtn');
         tasksBtn.addEventListener('click', () => generateCards());
-
+        // add here the today and stuff
     };
 
-
     const generateList = function() {
-        console.log('passed');
         const listsContainer = document.querySelector('.listsContainer');
         for (let list of listModule.listArr) {
             const listDiv = document.createElement('button');
