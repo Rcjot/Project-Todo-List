@@ -8,7 +8,7 @@ const TaskModule = (function(){
             this.name = name;
             this.due = due;
             this.desc = desc;
-            this.list = list;
+            this.listName = list;
         }
 
 
