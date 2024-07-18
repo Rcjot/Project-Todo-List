@@ -12,7 +12,7 @@ const listModule = (function(){
 
     const addList = function(name, color){
         listArr.push(ListObj(name,color));
-        RenderModule.addOptiontoDropDown(name);
+        RenderModule.updateOptionsDropDown();
     }
 
 

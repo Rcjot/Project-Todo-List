@@ -16,13 +16,10 @@ const cardModule =(function() {
         showmore.addEventListener('click', () =>{
             if (editOpen){
                 editContainer.innerHTML = '';
-                // editContainer.style.display = 'none';
             }else{
                 editCard(card, task, editContainer, textDiv);
             }
             editOpen = !editOpen;
-            console.log(listModule.listArr);
-            console.log(TaskModule.taskArr);
         });
 
         showmore.textContent = '...';

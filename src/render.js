@@ -32,16 +32,40 @@ const RenderModule = (function(){
                 generateCards(listed);
             });
 
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'delete';
+            deleteBtn.addEventListener('click', () => {
+                for (let task of TaskModule.taskArr){
+                    if (task.listName === list.listName){
+                        task.editList('');
+                    }
+                }
+
+                 const listIndex = listModule.listArr.findIndex(thislist => thislist.listName === list.listName);
+                listModule.listArr.splice(listIndex, 1);
+                updateOptionsDropDown();
+                update();
+            });
+
             listsContainer.appendChild(listDiv);
+            listsContainer.appendChild(deleteBtn);
         }
     };
 
-    const addOptiontoDropDown = function(name){
+    const updateOptionsDropDown = function(){ 
         const selection = document.querySelector('#listDropdown')
-        const option = document.createElement('option');
-        option.setAttribute('value', `${name}`);
-        option.textContent = `${name}`;
-        selection.appendChild(option);
+        selection.innerHTML = '';
+        const unlistedOption = document.createElement('option');
+        unlistedOption.value = '';
+        unlistedOption.textContent = 'unlisted';
+        selection.appendChild(unlistedOption);
+        for (let list of listModule.listArr){
+            const option = document.createElement('option');
+            option.setAttribute('value', `${list.listName}`);
+            option.textContent = `${list.listName}`;
+            selection.appendChild(option);
+        }
+
     }
 
     const update = function(){
@@ -55,7 +79,7 @@ const RenderModule = (function(){
         generateList();
     }
 
-    return { update, addOptiontoDropDown }
+    return { update, updateOptionsDropDown }
 })();
 
 export { RenderModule}
