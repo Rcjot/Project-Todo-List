@@ -71,8 +71,11 @@ const RenderModule = (function(){
     const generateList = function() {
         const listsContainer = document.querySelector('.listsContainer');
         for (let list of listModule.listArr) {
-            const listDiv = document.createElement('button');
-            listDiv.textContent = `${list.listName}`;
+            const listDiv = document.createElement('div');
+            const listBtn = document.createElement('button');
+            listBtn.classList.add('listBtn');
+            listDiv.classList.add('listDiv');
+            listBtn.textContent = `${list.listName}`;
             listDiv.setAttribute('style', `background-color:${list.listColor}`);
 
             listDiv.addEventListener('click', () => {
@@ -83,7 +86,8 @@ const RenderModule = (function(){
             });
 
             const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'delete';
+            deleteBtn.classList.add('deleteListBtn');
+            deleteBtn.setAttribute('title', 'delete list');
             deleteBtn.addEventListener('click', () => {
                 for (let task of TaskModule.taskArr){
                     if (task.listName === list.listName){
@@ -98,9 +102,9 @@ const RenderModule = (function(){
                 update();
                 listModule.populateStorage();
             });
-
+            listDiv.appendChild(listBtn);
+            listDiv.appendChild(deleteBtn);
             listsContainer.appendChild(listDiv);
-            listsContainer.appendChild(deleteBtn);
         }
     };
 

@@ -9,21 +9,39 @@
 <body>
     <div id="left">
         <h1>Todo List</h1>
+        <hr>
         <nav>
-            <button id="addTaskBtn"><h2>add Task</h2></button>
-            <button id="tasksBtn">Tasks</button>
+            <button id="addTaskBtn">
+                <h2>add Task</h2>
+                <div id="svg" class="addTaskBtn"></div>
+            </button>
+            <button id="tasksBtn">
+                <div id="svg" class="tasksBtn"></div>
+                <p>Tasks</p>
+            </button>
             <hr>
-            <button id="todayBtn">Today</button>
-            <button id="somedayBtn">Someday</button>
-            <button id="anytimeBtn">Anytime</button>
+            <button id="todayBtn">
+                <div id="svg" class="todayBtn"></div>
+                <p>Today</p>
+            </button>
+            <button id="somedayBtn">
+                <div id="svg" class="somedayBtn"></div>
+                <p>Someday</p>
+            </button>
+            <button id="anytimeBtn">
+                <div id="svg" class="anytimeBtn"></div>
+                <p>Anytime</p>
+            </button>
             <hr>
-            <button id="finishedBtn">Finished Tasks</button>
+            <button id="finishedBtn">
+                <div id="svg" class="finishedBtn"></div>
+                <p>Finished Tasks</p>
+            </button>
             <hr>
-
         </nav>
         <div class="listsBar">
             <h1>Lists</h1>
-            <Button id="addListsBtn">+</Button>
+            <Button id="addListsBtn"></Button>
         </div>
         <div class="listsContainer"></div>
     </div>
@@ -34,37 +52,41 @@
         
     </div>
 
+    
     <dialog id="taskDialog">
-        <button id="dlgCloseBtn">cancel</button>
-        <form action="#">
-            <div>
-                <label for="taskName">Task name</label>
-                <input type="text" id="taskName" placeholder="New Task" autocomplete="off" required>
-            </div>
-            <div>
-                <label for="taskDue">Due date</label>
-                <input type="date" id="taskDue" >
-            </div>
-            <div>
-                <label for="taskDesc">Description</label>
-                <input type="text" id="taskDesc" placeholder="Description" autocomplete="off">
-            </div>
-            <label for="listDropdown">add to List</label>
-            <select id="listDropdown">
-                <option value="">unlisted</option>
-            </select>
-        </form>
-        <button id="confirmBtn">add Task</button>
+        <div id="taskDivadd">
+            <form action="#">
+                <div>
+                    <label for="taskName">Task name</label>
+                    <input type="text" id="taskName" placeholder="New Task" autocomplete="off" required>
+                </div>
+                <div>
+                    <label for="taskDue">Due date</label>
+                    <input type="date" id="taskDue" >
+                </div>
+                <div>
+                    <label for="taskDesc">Description</label>
+                    <input type="text" id="taskDesc" placeholder="Description" autocomplete="off">
+                </div>
+                <label for="listDropdown">add to List</label>
+                <select id="listDropdown">
+                    <option value="">unlisted</option>
+                </select>
+            </form>
+            <button id="confirmBtn">add Task</button>
+        </div>
     </dialog>
 
     <dialog id="listDialog">
-        <button id="dlgCloseBtnList">cancel</button>
-        <form action="#">
-            <label for="listName"></label>
-            <input type="text" id="listName" placeholder="list name" autocomplete="off">
-            <input type="color" id="listColor">
-        </form>
-        <button id="confirmBtnList">confirm</button>
+        <div id="listDiv">
+            <form action="#">
+                <label for="listName">List name</label>
+                <input type="text" id="listName" placeholder="list name" autocomplete="off">
+                <input type="color" id="listColor">
+            </form>
+            <button id="confirmBtnList">confirm</button>
+        </div>
+
     </dialog>
     <script src="index.js"></script>
 </body>

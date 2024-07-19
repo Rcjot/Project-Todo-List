@@ -13,9 +13,13 @@ export const dialogModule = {
         addTaskBtn.addEventListener('click', ()=>{
             dialog.showModal();
         });
-        const closeBtn = document.querySelector('#dlgCloseBtn');
+        dialog.addEventListener('click', (event) => {
+            if (event.target === dialog){
+                dialog.close();
+            }
+        });
+
         const confirmBtn = document.querySelector('#confirmBtn');
-        closeBtn.addEventListener('click', ()=> dialog.close());
         confirmBtn.addEventListener('click', () => {
             dialog.close();
             this.confirmTask();
@@ -36,9 +40,13 @@ export const dialogModule = {
             const dialog = document.querySelector('#listDialog');
             dialog.showModal();
         });
-        const closeBtn = document.querySelector('#dlgCloseBtnList');
+
+        dialog.addEventListener('click', (event) => {
+            if (event.target === dialog){
+                dialog.close();
+            }
+        });
         const confirmBtn = document.querySelector('#confirmBtnList');
-        closeBtn.addEventListener('click', ()=> dialog.close());
         confirmBtn.addEventListener('click', () => {
             dialog.close();
             this.confirmList();
