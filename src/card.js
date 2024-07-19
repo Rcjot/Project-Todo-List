@@ -16,9 +16,10 @@ const cardModule =(function() {
         checkBox.setAttribute('type', 'checkbox');
         checkBox.checked = task.checked;
 
+        // checkbox
         checkBox.addEventListener('change', () => {
             task.editChecked();
-            console.log(TaskModule.taskArr);
+            RenderModule.update();
             TaskModule.populateStorage();
         });
 
@@ -27,7 +28,6 @@ const cardModule =(function() {
             if (editOpen){
                 editContainer.innerHTML = '';
             }else{
-                console.log(task);
                 editCard(card, task, editContainer, textDiv);
             }
             editOpen = !editOpen;
@@ -44,7 +44,6 @@ const cardModule =(function() {
     }
 
     const changeText = function(textDiv, task){
-        console.log(task.due);
         let myDate;
         if (task.due === ''){
             myDate = 'Anytime';
@@ -91,11 +90,12 @@ const cardModule =(function() {
         dueInput.value = task.due;
         descInput.value = task.desc;
         selection.value = task.listName;
-
+        // input changes
         nameInput.addEventListener('change', () => {
             task.editName(nameInput.value);
             changeText(textDiv, task);
             TaskModule.populateStorage();
+
         }); 
         dueInput.addEventListener('change', () =>{
             task.editDue(dueInput.value);
@@ -111,6 +111,7 @@ const cardModule =(function() {
             task.editList(selection.value);
             changeColor(card, task);
             changeText(textDiv, task);
+            RenderModule.update();
             TaskModule.populateStorage();
         });
         const deleteBtn = document.createElement('button');
@@ -127,7 +128,7 @@ const cardModule =(function() {
         editContainer.appendChild(selection);
         editContainer.appendChild(deleteBtn);
         card.appendChild(editContainer);
-
+        
         
         
     }

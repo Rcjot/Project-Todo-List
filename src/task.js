@@ -45,7 +45,6 @@ const TaskModule = (function(){
     }
 
     const populateStorage = function() {
-        console.log(taskArr);
         localStorage.setItem("taskArr", JSON.stringify(taskArr));
     }
 
@@ -53,11 +52,6 @@ const TaskModule = (function(){
         let newTask = new Task(name, due, desc, list, checked);
         taskArr.push(newTask);
         populateStorage();
-        console.log(taskArr);
-    }
-
-    const printTask = function(){
-        console.log(this.taskArr);
     }
     
     return { 
@@ -65,7 +59,6 @@ const TaskModule = (function(){
         populateStorage,
         createTask,
         taskArr,
-        printTask
     };
 })();
 

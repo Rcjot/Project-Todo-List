@@ -9,7 +9,6 @@ const RenderModule = (function(){
     const generateCards = function(arr = TaskModule.taskArr) {
 
         const content = document.querySelector('#right');
-        console.log(TaskModule.taskArr);
         content.innerHTML = '';
         for (let task of arr){
             cardModule.createCard(task); // if statement asking for category..
@@ -22,15 +21,19 @@ const RenderModule = (function(){
         const headText = document.querySelector('#headText');
 
         tasksBtn.addEventListener('click', () => {
-            generateCards();
-            headText.textContent = 'Tasks'
+            let tasks = TaskModule.taskArr.filter((task) => {
+                return task.checked === false;
+            })
+
+            generateCards(tasks);
+            headText.textContent = 'Tasks';
         });
 
         const todayBtn = document.querySelector('#todayBtn');
         todayBtn.addEventListener('click', () => {
             
             let todayArr = TaskModule.taskArr.filter((task) => {
-                return task.due === today;
+                return task.due === today && task.checked === false;
             });
             generateCards(todayArr);
             headText.textContent = 'Today';
@@ -39,7 +42,7 @@ const RenderModule = (function(){
         const somedayBtn = document.querySelector('#somedayBtn');
         somedayBtn.addEventListener('click', () => {
             let somedayArr = TaskModule.taskArr.filter((task) => {
-                return task.due != today && task.due != '';
+                return task.due != today && task.due != '' && task.checked === false;
             });
             generateCards(somedayArr);
             headText.textContent = 'Someday';
@@ -47,14 +50,21 @@ const RenderModule = (function(){
 
         const anytimeBtn = document.querySelector('#anytimeBtn');
         anytimeBtn.addEventListener('click', () => {
-            console.log(TaskModule.taskArr);
             let anytimeArr = TaskModule.taskArr.filter((task) => {
-                return task.due === '';
+                return task.due === '' && task.checked === false;
             });
             generateCards(anytimeArr);
             headText.textContent = 'Anytime';
         });
 
+        const finishedBtn = document.querySelector('#finishedBtn');
+        finishedBtn.addEventListener('click', () => {
+            let finishedArr = TaskModule.taskArr.filter((task) => {
+                return task.checked === true;
+            });
+            updateHeadText('Finished Tasks')
+            generateCards(finishedArr);
+        });
         // add here the today and stuff
     };
 
@@ -66,12 +76,10 @@ const RenderModule = (function(){
             listDiv.setAttribute('style', `background-color:${list.listColor}`);
 
             listDiv.addEventListener('click', () => {
-                let listed = TaskModule.taskArr.filter((task) => {
-                    return task.listName === list.listName;
-                })
-                generateCards(listed);
                 const headText = document.querySelector('#headText');
                 headText.textContent = list.listName;
+                update();
+
             });
 
             const deleteBtn = document.createElement('button');
@@ -109,21 +117,78 @@ const RenderModule = (function(){
             option.textContent = `${list.listName}`;
             selection.appendChild(option);
         }
-
     }
+    const updateHeadText = function(text){
+        const headText = document.querySelector('#headText');
+        headText.textContent = text;
+    }
+
+    const updateShownCards = function() {
+        const today = format(new Date(), "yyyy-MM-dd");
+        const headText = document.querySelector('#headText');
+        const myText = headText.textContent.split(' ').join('')
+        let Tasks = TaskModule.taskArr.filter((task) => {
+            return task.checked === false;
+        })
+        let Today = TaskModule.taskArr.filter((task) => {
+            return task.due === today && task.checked === false;
+        });
+        let Someday = TaskModule.taskArr.filter((task) => {
+            return task.due != today && task.due != '' && task.checked === false;
+        });
+        let Anytime = TaskModule.taskArr.filter((task) => {
+            return task.due === '' && task.checked === false;
+        });
+        let FinishedTasks = TaskModule.taskArr.filter((task) => {
+            return task.checked === true;
+        });
+        let listed = TaskModule.taskArr.filter((task) => {
+            return task.listName === headText.textContent && task.checked === false;
+        })
+
+        if (listed.length === 0){
+            switch(myText) {
+                case 'Tasks':
+                    generateCards(Tasks);
+                    break;
+                case 'Today':
+                    generateCards(Today);
+                    break;
+                case 'Someday': 
+                    generateCards(Someday);
+                    break;
+                case 'Anytime':
+                    generateCards(Anytime);
+                    break;
+                case 'FinishedTasks':
+                    generateCards(FinishedTasks);
+                    break;
+            }
+        }else {
+            generateCards(listed);
+        }
+    }
+    
 
     const update = function(){
         const content = document.querySelector('#right');
         const listsContainer = document.querySelector('.listsContainer');
         listsContainer.innerHTML = '';
         content.innerHTML = '';
-
+        let tasks = TaskModule.taskArr.filter((task) => {
+            return task.checked === false;
+        })
         navBtns();
-        generateCards();
+        updateShownCards();
         generateList();
     }
 
-    return { update, updateOptionsDropDown }
+    const init = function(){
+        updateHeadText('Tasks');
+        update();
+    }
+
+    return { update, updateOptionsDropDown, init }
 })();
 
 export { RenderModule}
