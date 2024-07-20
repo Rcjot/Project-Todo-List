@@ -4,15 +4,25 @@
     box-sizing: border-box;
 }
 
+:root {
+    --dialog-height: calc(100vh/2);
+    --dialog-width: calc(100vw/2);
+
+}
+
+
 body {
     min-width: 100vw;
+    max-width: 100vw;
     min-height: 100vh;
+    max-height: 100vh;
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 290px 5fr;
     grid-template-rows: 0.5fr 5fr;
 }
 
 #headName{
+    height: 117px;
     padding: 0px 20px;
     font-size: 1.5em;
     display: flex;
@@ -21,15 +31,70 @@ body {
 }
 
 #left {
+    max-width: 290px;
     grid-row: 1/3;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-
 }
 
 #right {
     padding: 1rem;
     background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
 }
+
+/* right start */
+
+.taskCard {
+    padding: 8px;
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 8px;
+    align-items: center;
+}
+
+.topCard {
+    grid-column: 1/3;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.textNameDiv {
+    font-weight: bold;
+    font-size: 1.5em;
+
+}
+
+.showmore {
+    height: 12px;
+    width: 30px;
+    border: 0px;
+    border-radius: 12px;
+    background-color: white;
+    background-image: url(./svgs/more.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.editContainer {
+    grid-column: 1/2;
+    display: flex;
+    flex-direction: column;
+}
+.cardCheckbox {
+    height: 20px;
+    width: 20px;
+}
+
+
+/* right end */
 
 /* #left start */
 #left > *{
@@ -94,12 +159,16 @@ nav > button > p, h2 {
 .listsBar {
     display: flex;
     justify-content: space-between;
+    
 }
 
 .listsContainer {
     display: flex;
     flex-direction: column;
+    max-height: 48%;
     gap: 16px;
+    overflow-y: auto;
+
 }
 
 .listDiv {
@@ -112,6 +181,7 @@ nav > button > p, h2 {
 .listBtn {
     font-size: 1em;
     min-width: min-content;
+
 }
 
 
@@ -142,8 +212,58 @@ dialog {
     min-width: 50%;
     min-height: 50%;
     border: 0px;
+    border-radius: 12px;
 }
 
+/* taskDialog */
+
+
+#taskDivadd {
+    min-height: var(--dialog-height) ;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+#taskDivadd form{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: auto;
+}
+
+#taskDivadd form input,select {
+    width: 20%;
+}
+
+#taskDivadd form div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#taskDue{
+    padding: 3px;
+    border-radius: 12px;
+    border: 1px solid black;
+}
+
+#taskName, #taskDesc {
+    padding: 8px;
+    padding-bottom: 3px;
+    outline: none;
+    border: 0px;
+    border-bottom: 1px solid black;
+
+}
+
+#listDropdown {
+    outline: none;
+
+}
+
+
+/* taskDialog */
 
 
 /* listDialog */
@@ -153,10 +273,123 @@ dialog {
     min-height: fit-content;
     position: relative;
 
-
-    padding: 10px;
 }
 
+#listDiv {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#listDiv form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+#dialoglistName {
+    display: flex;
+    flex-direction: column;
+}
+#dialoglistColor {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#listName {
+    padding: 8px;
+    padding-bottom: 3px;
+    outline: none;
+    border: 0px;
+    border-bottom: 1px solid black;
+}
+
+#listColor {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+    width: 32px;
+    height: 32px;
+    border: none;
+    cursor: pointer;
+}
+
+#listColor::-webkit-color-swatch {
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+#listolor::-moz-color-swatch{
+    border-radius: 50%;
+    border: 1px solid black;;
+}
+
+/* button */
+
+
+/* CSS */
+.button-4 {
+    width: 50%;
+    justify-self: center;
+    align-self: center;
+    appearance: none;
+    background-color: #FAFBFC;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #24292E;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    list-style: none;
+    padding: 6px 16px;
+    position: relative;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+}
+
+.button-4:hover {
+  background-color: #F3F4F6;
+  text-decoration: none;
+  transition-duration: 0.1s;
+}
+
+.button-4:disabled {
+  background-color: #FAFBFC;
+  border-color: rgba(27, 31, 35, 0.15);
+  color: #959DA5;
+  cursor: default;
+}
+
+.button-4:active {
+  background-color: #EDEFF2;
+  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+  transition: none 0s;
+}
+
+.button-4:focus {
+  outline: 1px transparent;
+}
+
+.button-4:before {
+  display: none;
+}
+
+.button-4:-webkit-details-marker {
+  display: none;
+}
+/* button */
 /* listDialog */
 
 /* dialog */
@@ -220,3 +453,8 @@ dialog {
 }
 
 /* nav btns svg */
+
+
+/* checkbox */
+
+

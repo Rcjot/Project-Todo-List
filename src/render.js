@@ -78,11 +78,12 @@ const RenderModule = (function(){
             listBtn.textContent = `${list.listName}`;
             listDiv.setAttribute('style', `background-color:${list.listColor}`);
 
-            listDiv.addEventListener('click', () => {
-                const headText = document.querySelector('#headText');
-                headText.textContent = list.listName;
-                update();
-
+            listDiv.addEventListener('click', (event) => {
+                if (event.target === listDiv){
+                    const headText = document.querySelector('#headText');
+                    headText.textContent = list.listName;
+                    update();
+                }
             });
 
             const deleteBtn = document.createElement('button');

@@ -8,13 +8,22 @@ const cardModule =(function() {
     const createCard = function(task) {
         const content = document.querySelector('#right');
         const card = document.createElement('div');
+        card.classList.add('taskCard')
         const showmore = document.createElement('button');
+        showmore.classList.add('showmore');
         const editContainer = document.createElement('div');
+        editContainer.classList.add('editContainer');
         const textDiv = document.createElement('div');
+        textDiv.classList.add('cardTextDiv');
         let editOpen = false
         const checkBox = document.createElement('input');
+        checkBox.classList.add('cardCheckbox');
         checkBox.setAttribute('type', 'checkbox');
         checkBox.checked = task.checked;
+
+        const topCard = document.createElement('div');
+        topCard.classList.add('topCard');
+
 
         // checkbox
         checkBox.addEventListener('change', () => {
@@ -33,11 +42,12 @@ const cardModule =(function() {
             editOpen = !editOpen;
         });
 
-        showmore.textContent = '...';
+        // showmore.textContent = '';
         changeColor(card, task);
         changeText(textDiv, task);
-        card.appendChild(textDiv);
-        card.appendChild(checkBox);
+        topCard.appendChild(textDiv);
+        topCard.appendChild(checkBox);
+        card.appendChild(topCard);
         card.appendChild(showmore);
         content.appendChild(card);
 
@@ -52,8 +62,17 @@ const cardModule =(function() {
         }else{
             myDate = format(new Date(task.due), "eee', 'LLLL d")
         }
-        const text = `${task.name} ${myDate} ${task.desc} ${task.listName}`;
-        textDiv.textContent = text;
+        // const text = `${task.name} ${myDate} ${task.desc} ${task.listName}`;
+        const textNameDiv = document.createElement('div');
+        textNameDiv.classList.add('textNameDiv');
+        textNameDiv.textContent = task.name;
+        const textDateDiv = document.createElement('div');
+        textDateDiv.classList.add('textDateDiv');
+        textDateDiv.textContent = myDate;
+        const text = `${task.name} ${myDate}`; 
+        textDiv.appendChild(textNameDiv);
+        textDiv.appendChild(textDateDiv);
+        
     }
 
     const changeColor = function(card, task){
@@ -69,12 +88,31 @@ const cardModule =(function() {
     const editCard = function(card, task, editContainer, textDiv){
         editContainer.innerHTML = '';
         const nameInput = document.createElement('input');
+        const nameLabel = document.createElement('label');
+        nameLabel.setAttribute('for', 'nameInput');
+        nameLabel.textContent = 'Task name';
         nameInput.setAttribute('type', 'text');
+        nameInput.setAttribute('id', 'nameInput')
+
         const dueInput = document.createElement('input');
+        const dueLabel = document.createElement('label');
+        dueLabel.setAttribute('for', 'dueInput');
+        dueLabel.textContent = 'Due date';
         dueInput.setAttribute('type', 'date');
+        dueInput.setAttribute('id', 'dueInput');
+
         const descInput = document.createElement('input');
         descInput.setAttribute('type', 'text');
+        descInput.setAttribute('id', 'descInput');
+        const descLabel = document.createElement('label');
+        descLabel.textContent = 'description';
+        descLabel.setAttribute('for', 'descLabel');
+
+        const selectionLabel = document.createElement('label');
+        selectionLabel.textContent = 'List';
+        selectionLabel.setAttribute('for', 'selectionInput')
         const selection = document.createElement('select');
+        selection.setAttribute('id', 'selectionInput')
         const unlistedOption = document.createElement('option');
         unlistedOption.value = '';
         unlistedOption.textContent = 'unlisted';
@@ -122,9 +160,13 @@ const cardModule =(function() {
             TaskModule.populateStorage();
         });
         deleteBtn.textContent = 'delete';
-        editContainer.appendChild(nameInput);
-        editContainer.appendChild(dueInput);
+        editContainer.appendChild(descLabel);
         editContainer.appendChild(descInput);
+        editContainer.appendChild(nameLabel)
+        editContainer.appendChild(nameInput);
+        editContainer.appendChild(dueLabel);
+        editContainer.appendChild(dueInput);
+        editContainer.appendChild(selectionLabel);
         editContainer.appendChild(selection);
         editContainer.appendChild(deleteBtn);
         card.appendChild(editContainer);
