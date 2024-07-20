@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="left">
+        <h1>Todo List</h1>
+        <hr>
+        <nav>
+            <button id="addTaskBtn">
+                <h2>add Task</h2>
+                <div id="svg" class="addTaskBtn"></div>
+            </button>
+            <button id="tasksBtn">
+                <div id="svg" class="tasksBtn"></div>
+                <p>Tasks</p>
+            </button>
+            <hr>
+            <button id="todayBtn">
+                <div id="svg" class="todayBtn"></div>
+                <p>Today</p>
+            </button>
+            <button id="somedayBtn">
+                <div id="svg" class="somedayBtn"></div>
+                <p>Someday</p>
+            </button>
+            <button id="anytimeBtn">
+                <div id="svg" class="anytimeBtn"></div>
+                <p>Anytime</p>
+            </button>
+            <hr>
+            <button id="finishedBtn">
+                <div id="svg" class="finishedBtn"></div>
+                <p>Finished Tasks</p>
+            </button>
+            <hr>
+        </nav>
+        <div class="listsBar">
+            <h1>Lists</h1>
+            <Button id="addListsBtn"></Button>
+        </div>
+        <div class="listsContainer"></div>
+    </div>
+    <div id="headName">
+        <h1 id="headText"></h1>
+    </div>
+    <div id="right">
+        
+    </div>
+
+    
+    <dialog id="taskDialog">
+        <div id="taskDivadd">
+            <form action="#">
+                <div id="dialogtaskName">
+                    <label for="taskName">Task name</label>
+                    <input type="text" id="taskName" placeholder="New Task" autocomplete="off" required>
+                </div>
+                <div id="dialogtaskDue">
+                    <label for="taskDue">Due date</label>
+                    <input type="date" id="taskDue" >
+                </div>
+                <div id="dialogtaskDesc">
+                    <label for="taskDesc">Description</label>
+                    <input type="text" id="taskDesc" placeholder="Description" autocomplete="off">
+                </div>
+                <div id="dialogselectList">
+                    <label for="listDropdown">add to List</label>
+                    <select id="listDropdown">
+                        <option value="">unlisted</option>
+                    </select>
+                </div>
+
+            </form>
+            <button id="confirmBtn" class="button-4">add Task</button>
+        </div>
+    </dialog>
+
+    <dialog id="listDialog">
+        <div id="listDiv">
+            <form action="#">
+                <div id="dialoglistName">
+                    <label for="listName">List name</label>
+                    <input type="text" id="listName" placeholder="list name" autocomplete="off">
+                </div>
+                <div id="dialoglistColor">
+                    <label for="listColor">Color:</label>
+                    <input type="color" value="#7fffd4" id="listColor">
+                </div>
+            </form>
+            <button id="confirmBtnList" class="button-4">add List</button>
+        </div>
+
+        
+
+    </dialog>
+    
+      
+    <script src="index.js"></script>
+<script defer src="main.js"></script></body>
+</html>
