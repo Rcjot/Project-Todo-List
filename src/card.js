@@ -153,13 +153,14 @@ const cardModule =(function() {
             TaskModule.populateStorage();
         });
         const deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('deleteTaskBtn');
         deleteBtn.addEventListener('click', () => {
             const taskIndex = TaskModule.taskArr.findIndex(thisTask => thisTask.name === task.name);
             TaskModule.taskArr.splice(taskIndex, 1);
             RenderModule.update();
             TaskModule.populateStorage();
         });
-        deleteBtn.textContent = 'delete';
+        // deleteBtn.textContent = 'delete';
         editContainer.appendChild(descLabel);
         editContainer.appendChild(descInput);
         editContainer.appendChild(nameLabel)

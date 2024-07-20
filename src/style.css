@@ -66,6 +66,7 @@ body {
 .cardCheckbox {
     height: 20px;
     width: 20px;
+    cursor: pointer;
 }
 
 .textNameDiv {
@@ -214,13 +215,16 @@ nav > button > p, h2 {
 }
 
 
-.deleteListBtn {
+.deleteListBtn, .deleteTaskBtn {
+    border: 0;
+    background-color: transparent;
     min-height: 32px;
     min-width: 32px;
     max-width: 32px;
     background-image: url(./svgs/delete.svg);
     background-repeat: no-repeat;
     background-position: center;
+    cursor: pointer;
 
 }
 
