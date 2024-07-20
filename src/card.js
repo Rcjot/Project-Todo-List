@@ -101,7 +101,7 @@ const cardModule =(function() {
         dueInput.setAttribute('type', 'date');
         dueInput.setAttribute('id', 'dueInput');
 
-        const descInput = document.createElement('input');
+        const descInput = document.createElement('textarea');
         descInput.setAttribute('type', 'text');
         descInput.setAttribute('id', 'descInput');
         const descLabel = document.createElement('label');
